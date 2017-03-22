@@ -38,7 +38,7 @@ public class Parser extends AppCompatActivity {
         final RequestQueue requestQueue = Volley.newRequestQueue(AppController.getInstance());
         String teamid = Integer.toString(thisID);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://api.football-data.org/v1/teams/" + teamid + "/fixtures?timeFrame=n21",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://api.football-data.org/v1/teams/" + teamid + "/fixtures",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

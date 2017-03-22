@@ -27,6 +27,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     LatLng home_location = null;
     Map<String, LatLng> cities = new HashMap<>();
 
+    LatLng hull = new LatLng(53.7465,-0.368009);
+    LatLng villa = new LatLng(52.5092,-1.88508);
+    LatLng burnley = new LatLng(53.7888,-2.23018);
     LatLng chelsea = new LatLng(51.4816, -0.191034);
     LatLng bournemouth = new LatLng(50.7352, -1.83839);
     LatLng arsenal = new LatLng(51.5549, -0.108436);
@@ -36,6 +39,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     LatLng liverpool = new LatLng(53.4308, -2.96096);
     LatLng mancity = new LatLng(53.483, -2.20024);
     LatLng manu = new LatLng(53.4631, -2.29139);
+    LatLng newcastle = new LatLng(54.9756,-1.62179);
+    LatLng norwich = new LatLng(52.6221,1.30912);
     LatLng south = new LatLng(50.9058, -1.39114);
     LatLng stoke = new LatLng(52.9884, -2.17542);
     LatLng sunder = new LatLng(54.9146, -1.38837);
@@ -65,15 +70,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void intializelocations() {
+        cities.put("Aston Villa FC",villa);
         cities.put("Arsenal FC",arsenal);
+        cities.put("Burnley FC",burnley);
         cities.put("AFC Bournemouth",bournemouth);
         cities.put("Chelsea FC",chelsea);
         cities.put("Crystal Palace FC",cp);
         cities.put("Everton FC", everton);
+        cities.put("Hull City FC",hull);
         cities.put("Leicester City FC",leiceister);
         cities.put("Liverpool FC",liverpool);
         cities.put("Manchester City",mancity);
         cities.put("Manchester United FC",manu);
+        cities.put("Newcastle United FC",newcastle);
+        cities.put("Norwich City FC",norwich);
         cities.put("Southampton FC",south);
         cities.put("Stoke City FC",stoke);
         cities.put("Sunderland AFC",sunder);
@@ -104,11 +114,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void OnSuccess(ArrayList<Fixture> fixtures) {
                 for(Fixture fixture: fixtures ){
-                    LatLng pos = cities.get(fixture.homeTeamName);
-                    mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)
-                            .snippet("Matchday: " + fixture.matchday));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(home_location));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(home_location,6));
+
+                    if(cities.get(fixture.homeTeamName)!= null) {
+                        LatLng pos = cities.get(fixture.homeTeamName);
+                        mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)
+                                .snippet("Matchday: " + fixture.matchday));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(home_location));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(home_location, 6));
+                    }
                 }
             }
             @Override
