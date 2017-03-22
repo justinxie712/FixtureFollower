@@ -10,15 +10,15 @@
         android:id="@+id/spinner2"
         android:layout_width="395dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@color/colorAccent"
         android:dropDownWidth="match_parent"
         android:entries="@color/colorAccent"
-        android:popupBackground="@color/colorPrimary"
+        android:popupBackground="@color/colorPrimaryDark"
         android:spinnerMode="dropdown"
         android:visibility="visible"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="3dp"
-        android:layout_marginEnd="16dp" />
+        tools:layout_editor_absoluteY="3dp" />
 
 </android.support.constraint.ConstraintLayout>
