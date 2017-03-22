@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:dropDownWidth="match_parent"
-        android:entries="@color/colorAccent"
+        android:entries="@color/colorPrimaryDark"
+        android:popupBackground="@color/colorPrimaryDark"
         android:spinnerMode="dropdown"
         android:visibility="visible" />
 

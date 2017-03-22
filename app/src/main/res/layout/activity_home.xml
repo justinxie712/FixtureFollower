@@ -10,15 +10,27 @@
         android:id="@+id/spinner2"
         android:layout_width="395dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
         android:dropDownWidth="match_parent"
-        android:entries="@color/colorAccent"
+        android:entries="@color/colorPrimaryDark"
         android:popupBackground="@color/colorPrimaryDark"
         android:spinnerMode="dropdown"
         android:visibility="visible"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="3dp" />
+        tools:layout_editor_absoluteY="3dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_google_signin_btn_text_dark_normal_background"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="Fixture Follower"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
 </android.support.constraint.ConstraintLayout>
