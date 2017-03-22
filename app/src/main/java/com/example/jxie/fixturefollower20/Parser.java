@@ -34,9 +34,6 @@ import java.util.Map;
 public class Parser extends AppCompatActivity {
 
 
-    public Parser() {
-    }
-
     public void Parse(int thisID, final CallBack callback) {
         final RequestQueue requestQueue = Volley.newRequestQueue(AppController.getInstance());
         String teamid = Integer.toString(thisID);
@@ -46,8 +43,6 @@ public class Parser extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         ArrayList<Fixture> fixtures;
-                        System.out.println("this is Response!!");
-                        System.out.println(response);
                         try {
                             JSONObject responseObject = new JSONObject(response);
                             fixtures = ParseHelper(responseObject);
@@ -63,7 +58,6 @@ public class Parser extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("this is Error!!");
                         System.out.println(error);
                         requestQueue.stop();
                     }
@@ -97,10 +91,7 @@ public class Parser extends AppCompatActivity {
                 String awayteamName = obj.get("awayTeamName").toString();
                 String matchday = obj.get("matchday").toString();
                 String date = obj.get("date").toString();
-//                System.out.println(hometeamName);
-//                System.out.println(awayteamName);
-//                System.out.println(matchday);
-//                System.out.println(date);
+
                 Fixture fixture = new Fixture(hometeamName,awayteamName,date,matchday);
                 System.out.println(fixture);
                 matches.add(fixture);
@@ -108,9 +99,8 @@ public class Parser extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println("In Parser helper");
-        System.out.println(matches);
         return matches;
     }
+
 
 }

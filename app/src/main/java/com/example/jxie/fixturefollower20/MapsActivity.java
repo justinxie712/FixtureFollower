@@ -21,17 +21,10 @@ import java.util.Map;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
     private Spinner mSpinner;
-
     int id = HomeActivity.id;
-
-    Parser parser = new Parser();
-
     String selection = HomeActivity.selection;
-
-    LatLng club_location = null;
-
+    LatLng home_location = null;
     Map<String, LatLng> cities = new HashMap<>();
 
     LatLng chelsea = new LatLng(51.4816, -0.191034);
@@ -56,7 +49,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         intializelocations();
-        club_location = cities.get(selection);
+        home_location = cities.get(selection);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
@@ -104,20 +97,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Parser parser = new Parser();
         mMap = googleMap;
+
         parser.Parse(id, new CallBack() {
             @Override
             public void OnSuccess(ArrayList<Fixture> fixtures) {
-                System.out.println("success!!");
-                System.out.println(fixtures);
                 for(Fixture fixture: fixtures ){
-                    System.out.print(fixture.homeTeamName);
                     LatLng pos = cities.get(fixture.homeTeamName);
-                    System.out.println(pos);
                     mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)
                             .snippet("Matchday: " + fixture.matchday));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(club_location));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(club_location,6));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(home_location));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(home_location,6));
                 }
             }
             @Override
@@ -126,8 +117,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
-
-
 
     }
 }
