@@ -1,9 +1,11 @@
 package com.example.jxie.fixturefollower20;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -23,9 +25,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private Spinner mSpinner;
     int id = HomeActivity.id;
+    String matchday = "";
     String selection = HomeActivity.selection;
     LatLng home_location = null;
     Map<String, LatLng> cities = new HashMap<>();
+    ArrayList<Fixture> globalFixtures = new ArrayList<>();
 
     LatLng hull = new LatLng(53.7465,-0.368009);
     LatLng villa = new LatLng(52.5092,-1.88508);
@@ -66,6 +70,93 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.matchdays, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
+
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long cid)
+            {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                selection = selectedItem;
+
+                if(selectedItem.equals("All matchdays"))
+                {
+                    matchday = "0";
+                }
+                if(selectedItem.equals("Matchday 1"))
+                {
+                    matchday = "1";
+                }
+                if(selectedItem.equals("Matchday 2"))
+                {
+                    matchday = "2";
+                }
+
+                if(selectedItem.equals("Matchday 3"))
+                {
+                    matchday = "3";
+                }
+
+                if(selectedItem.equals("Matchday 4"))
+                {
+                    matchday = "4";
+                }
+                if(selectedItem.equals("Matchday 5"))
+                {
+                    matchday = "5";
+                }
+                if(selectedItem.equals("Matchday 6"))
+                {
+                    matchday = "6";
+                }
+                if(selectedItem.equals("Matchday 7"))
+                {
+                    matchday = "7";
+                }
+                if(selectedItem.equals("Matchday 8"))
+                {
+                    matchday = "8";
+                }
+                if(selectedItem.equals("Matchday 9"))
+                {
+                    matchday = "9";
+                }
+                if(selectedItem.equals("Matchday 10"))
+                {
+                    matchday = "10";
+                }
+
+                if(matchday.equals("0")) {
+                    //mMap.clear();
+                    for(Fixture fixture: globalFixtures ){
+                        if(cities.get(fixture.homeTeamName)!= null) {
+                            LatLng pos = cities.get(fixture.homeTeamName);
+                            mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)
+                                    .snippet("Matchday: " + fixture.matchday));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(home_location));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(home_location, 6));
+                        }
+                    }
+                }
+                else {
+                    for (Fixture fixture : globalFixtures) {
+                        if (fixture.matchday.equals(matchday)) {
+                            mMap.clear();
+                            if (cities.get(fixture.homeTeamName) != null) {
+                                LatLng pos = cities.get(fixture.homeTeamName);
+                                mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)
+                                        .snippet("Matchday: " + fixture.matchday));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(home_location));
+                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(home_location, 6));
+                            }
+                        }
+                    }
+                }
+            } // to close the onItemSelected
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
 
     }
 
@@ -113,8 +204,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         parser.Parse(id, new CallBack() {
             @Override
             public void OnSuccess(ArrayList<Fixture> fixtures) {
-                for(Fixture fixture: fixtures ){
+                globalFixtures = fixtures;
 
+                for(Fixture fixture: fixtures ){
                     if(cities.get(fixture.homeTeamName)!= null) {
                         LatLng pos = cities.get(fixture.homeTeamName);
                         mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)

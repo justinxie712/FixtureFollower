@@ -26,6 +26,7 @@
 
     <string-array name="matchdays">
         <item>Select a Match Day</item>
+        <item> All matchdays</item>
         <item>Matchday 1</item>
         <item>Matchday 2</item>
         <item>Matchday 3</item>
@@ -38,3 +39,4 @@
         <item>Matchday 10</item>
     </string-array>
 </resources>
+s
