@@ -13,6 +13,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -71,6 +72,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
 
+        // Spinner selector for matchdays
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long cid)
@@ -125,8 +127,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     matchday = "10";
                 }
 
+                // If all matchdays option is selcted then plot all the fixures in the season
                 if(matchday.equals("0")) {
-                    //mMap.clear();
                     for(Fixture fixture: globalFixtures ){
                         if(cities.get(fixture.homeTeamName)!= null) {
                             LatLng pos = cities.get(fixture.homeTeamName);
@@ -138,6 +140,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 }
                 else {
+                    // If any other option other than all matchdays is selected then only plot the specific fixture for the matchday
                     for (Fixture fixture : globalFixtures) {
                         if (fixture.matchday.equals(matchday)) {
                             mMap.clear();
@@ -160,6 +163,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    // Add String, Latlong combination into the map for different cities
     private void intializelocations() {
         cities.put("Aston Villa FC",villa);
         cities.put("Arsenal FC",arsenal);
@@ -209,8 +213,53 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 for(Fixture fixture: fixtures ){
                     if(cities.get(fixture.homeTeamName)!= null) {
                         LatLng pos = cities.get(fixture.homeTeamName);
-                        mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)
-                                .snippet("Matchday: " + fixture.matchday));
+                        // If match has been already played and a result exists
+                        if(!fixture.goalsHome.equals("null")){
+                            System.out.println(selection);
+                            System.out.println(fixture.homeTeamName);
+                            //home game
+                            if(fixture.homeTeamName.equals("Liverpool FC")) {
+                                System.out.println(selection);
+                                System.out.println(fixture.homeTeamName);
+                                //home win
+                                if(Integer.parseInt(fixture.goalsHome)>Integer.parseInt(fixture.goalsAway)) {
+                                    mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + fixture.goalsHome + " " + fixture.awayTeamName + fixture.goalsAway)
+                                            .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                                }
+                                //home draw
+                                if(Integer.parseInt(fixture.goalsHome)==Integer.parseInt(fixture.goalsAway)) {
+                                    mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + fixture.goalsHome + " " + fixture.awayTeamName + fixture.goalsAway)
+                                            .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                                }
+                                //home loss
+                                if(Integer.parseInt(fixture.goalsHome)< Integer.parseInt(fixture.goalsAway)) {
+                                    mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + fixture.goalsHome + " " + fixture.awayTeamName + fixture.goalsAway)
+                                            .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                                }
+                            }
+                            if(fixture.awayTeamName.equals("Liverpool FC")) {
+                                //away win
+                                if(Integer.parseInt(fixture.goalsHome)< Integer.parseInt(fixture.goalsAway)) {
+                                    mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + fixture.goalsHome + " " + fixture.awayTeamName + fixture.goalsAway)
+                                            .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                                }
+                                //away draw
+                                if(Integer.parseInt(fixture.goalsHome)==Integer.parseInt(fixture.goalsAway)) {
+                                    mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + fixture.goalsHome + " " + fixture.awayTeamName + fixture.goalsAway)
+                                            .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                                }
+                                //away loss
+                                if(Integer.parseInt(fixture.goalsHome)> Integer.parseInt(fixture.goalsAway)) {
+                                    mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + fixture.goalsHome + " " + fixture.awayTeamName + fixture.goalsAway)
+                                            .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                                }
+                            }
+
+                        }
+                        else {
+                            mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)
+                                    .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        }
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(home_location));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(home_location, 6));
                     }

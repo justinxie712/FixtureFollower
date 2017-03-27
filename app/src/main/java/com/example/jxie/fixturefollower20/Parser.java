@@ -91,9 +91,13 @@ public class Parser extends AppCompatActivity {
                 String awayteamName = obj.get("awayTeamName").toString();
                 String matchday = obj.get("matchday").toString();
                 String date = obj.get("date").toString();
+                JSONObject result = obj.getJSONObject("result");
+                String goalsHome = result.get("goalsHomeTeam").toString();
+                String goalsAway = result.get("goalsAwayTeam").toString();
 
-                Fixture fixture = new Fixture(hometeamName,awayteamName,date,matchday);
+                Fixture fixture = new Fixture(hometeamName,awayteamName,date,matchday,goalsHome,goalsAway);
                 System.out.println(fixture);
+                System.out.println(result);
                 matches.add(fixture);
             }
         } catch (JSONException e) {
