@@ -133,7 +133,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if(cities.get(fixture.homeTeamName)!= null) {
                             LatLng pos = cities.get(fixture.homeTeamName);
                             mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)
-                                    .snippet("Matchday: " + fixture.matchday));
+                                    .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(home_location));
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(home_location, 6));
                         }
@@ -147,7 +147,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (cities.get(fixture.homeTeamName) != null) {
                                 LatLng pos = cities.get(fixture.homeTeamName);
                                 mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + " VS " + fixture.awayTeamName)
-                                        .snippet("Matchday: " + fixture.matchday));
+                                        .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(home_location));
                                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(home_location, 6));
                             }
