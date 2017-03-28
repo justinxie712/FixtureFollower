@@ -78,7 +78,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onItemSelected(AdapterView<?> parent, View view, int position, long cid)
             {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                selection = selectedItem;
 
                 if(selectedItem.equals("All matchdays"))
                 {
@@ -218,7 +217,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             System.out.println(selection);
                             System.out.println(fixture.homeTeamName);
                             //home game
-                            if(fixture.homeTeamName.equals("Liverpool FC")) {
+                            if(fixture.homeTeamName.equals(selection)) {
                                 System.out.println(selection);
                                 System.out.println(fixture.homeTeamName);
                                 //home win
@@ -237,7 +236,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                             .snippet("Matchday: " + fixture.matchday).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                                 }
                             }
-                            if(fixture.awayTeamName.equals("Liverpool FC")) {
+                            if(fixture.awayTeamName.equals(selection)) {
                                 //away win
                                 if(Integer.parseInt(fixture.goalsHome)< Integer.parseInt(fixture.goalsAway)) {
                                     mMap.addMarker(new MarkerOptions().position(pos).title(fixture.homeTeamName + fixture.goalsHome + " " + fixture.awayTeamName + fixture.goalsAway)
