@@ -31,6 +31,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     LatLng home_location = null;
     Map<String, LatLng> cities = new HashMap<>();
     ArrayList<Fixture> globalFixtures = new ArrayList<>();
+    Team globalTeam = null;
 
     LatLng hull = new LatLng(53.7465,-0.368009);
     LatLng villa = new LatLng(52.5092,-1.88508);
@@ -59,6 +60,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         intializelocations();
+
+        Parser parser = new Parser();
+
+        //Second Parser function
+        parser.ParseTeam(id, new CallbackTeam() {
+            @Override
+            public void OnSuccessTeam(Team team) {
+                globalTeam = team;
+                System.out.println(globalTeam);
+            }
+
+            @Override
+            public void OnFail(String msg) {
+                System.out.println(msg);
+            }
+        });
+
         home_location = cities.get(selection);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
@@ -126,7 +144,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     matchday = "10";
                 }
 
-                // If all matchdays option is selcted then plot all the fixures in the season
+                // If all matchdays option is selected then plot all the fixures in the season
                 if(matchday.equals("0")) {
                     for(Fixture fixture: globalFixtures ){
                         if(cities.get(fixture.homeTeamName)!= null) {
@@ -201,7 +219,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Parser parser = new Parser();
+        final Parser parser = new Parser();
         mMap = googleMap;
 
         parser.Parse(id, new CallBack() {
@@ -264,6 +282,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 }
             }
+            @Override
+            public void OnFail(String msg) {
+                System.out.println(msg);
+
+            }
+
+        });
+
+        parser.ParseTeam(id, new CallbackTeam() {
+            @Override
+            public void OnSuccessTeam(Team team) {
+                System.out.println(team);
+            }
+
             @Override
             public void OnFail(String msg) {
                 System.out.println(msg);

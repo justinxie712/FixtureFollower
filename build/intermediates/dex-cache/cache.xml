@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="/Users/pragyanbaidya/Documents/FixtureFollower/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/Users/pragyanbaidya/FixtureFollower/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7e7d89a4000f78a44076801e9429d8a5b2db246d">
+        <dex dex="/Users/pragyanbaidya/FixtureFollower/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_272a6b7b022bc3659e2a9c2f08e3b5bc7faecce4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/pragyanbaidya/FixtureFollower/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
-        <dex dex="/Users/pragyanbaidya/Documents/FixtureFollower/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_09cac866d34b408f1b8459f4f1bf39168c0a7332/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/pragyanbaidya/Documents/FixtureFollower/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="dda64b7f7a87a31fceb0045bc91654dcb039c959">
-        <dex dex="/Users/pragyanbaidya/Documents/FixtureFollower/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_763a702a5d4c9ce0d883037a41583b511f4d01ff/classes.dex" />
+        <dex dex="/Users/pragyanbaidya/FixtureFollower/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_75da5458abde6438a9ee6d0e7022efa4f283c243/classes.dex" />
     </item>
 
 </items>

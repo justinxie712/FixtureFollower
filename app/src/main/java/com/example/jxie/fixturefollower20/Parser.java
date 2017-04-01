@@ -106,5 +106,50 @@ public class Parser extends AppCompatActivity {
         return matches;
     }
 
+    public void ParseTeam(int thisID, final CallbackTeam callback) {
+        System.out.println("Inside Parse Team");
+        final RequestQueue requestQueue = Volley.newRequestQueue(AppController.getInstance());
+        String teamid = Integer.toString(thisID);
+        String url = "http://api.football-data.org/v1/teams/" + teamid;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            System.out.println("Inside Team callback response");
+                            JSONObject responseObject = new JSONObject(response);
+                            Team team = new Team("LFC","10000","asd");
+                            callback.OnSuccessTeam(team);
+                        }
+                        catch(JSONException e){
+                            e.printStackTrace();
+                            callback.OnFail(e.toString());
+                        }
+                        requestQueue.stop();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error);
+                        requestQueue.stop();
+                    }
+                }
+        ){
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("X-Auth-Token","c3bde62900244ca8ab734f01650d1f95");
+                params.put("X-Response-Control","full");
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(stringRequest);
+    }
+
 
 }
