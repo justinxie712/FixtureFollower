@@ -68,7 +68,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void OnSuccessTeam(Team team) {
                 globalTeam = team;
-                System.out.println(globalTeam);
+                System.out.println(globalTeam.name);
+                System.out.println(globalTeam.marketValue);
+                System.out.println(globalTeam.crest);
             }
 
             @Override
@@ -288,19 +290,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
 
-        });
-
-        parser.ParseTeam(id, new CallbackTeam() {
-            @Override
-            public void OnSuccessTeam(Team team) {
-                System.out.println(team);
-            }
-
-            @Override
-            public void OnFail(String msg) {
-                System.out.println(msg);
-
-            }
         });
 
     }

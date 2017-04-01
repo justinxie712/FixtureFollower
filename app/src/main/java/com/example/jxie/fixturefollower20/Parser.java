@@ -119,7 +119,7 @@ public class Parser extends AppCompatActivity {
                         try {
                             System.out.println("Inside Team callback response");
                             JSONObject responseObject = new JSONObject(response);
-                            Team team = new Team("LFC","10000","asd");
+                            Team team = new Team(responseObject.getString("name"),responseObject.getString("squadMarketValue"),responseObject.getString("crestUrl"));
                             callback.OnSuccessTeam(team);
                         }
                         catch(JSONException e){
